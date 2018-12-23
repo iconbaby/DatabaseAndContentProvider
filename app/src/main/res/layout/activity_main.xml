@@ -42,4 +42,11 @@
         android:layout_gravity="center"
         android:text="查询数据" />
 
+    <Button
+        android:id="@+id/btn_replaceData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="替换数据" />
+
 </LinearLayout>

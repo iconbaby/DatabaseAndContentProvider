@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_updateData;
     private Button btn_deleteData;
     private Button btn_queryData;
+    private Button btn_repalceData;
 
 
     @Override
@@ -30,12 +31,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_updateData = findViewById(R.id.btn_updateData);
         btn_deleteData = findViewById(R.id.btn_deleteData);
         btn_queryData = findViewById(R.id.btn_queryData);
+        btn_repalceData = findViewById(R.id.btn_replaceData);
 
         btn_createDatabase.setOnClickListener(this);
         btn_insertData.setOnClickListener(this);
         btn_updateData.setOnClickListener(this);
         btn_deleteData.setOnClickListener(this);
         btn_queryData.setOnClickListener(this);
+        btn_repalceData.setOnClickListener(this);
         myDatabaseHelper = new MyDatabaseHelper(this, "book.db", null, 2);
     }
 
@@ -57,6 +60,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_queryData:
                 queryData();
                 break;
+            case R.id.btn_replaceData:
+                replaceData();
+                break;
+        }
+    }
+
+    private void replaceData() {
+        SQLiteDatabase db = myDatabaseHelper.getWritableDatabase();
+        db.beginTransaction();
+        db.delete("User", null, null);
+        try {
+//            if (true) {
+//                throw new NullPointerException();
+//            }
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("name", "sk");
+            contentValues.put("age", 34);
+            contentValues.put("address", "sh");
+            db.insert("User", null, contentValues);
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
         }
     }
 
