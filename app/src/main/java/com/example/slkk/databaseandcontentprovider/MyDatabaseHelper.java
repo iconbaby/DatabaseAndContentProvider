@@ -22,7 +22,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                     + "id integer primary key autoincrement, "
                     + "name text, "
                     + "age integer, "
-                    + "address text)";
+                    + "address text,"
+                    + "gender text)";
 
     public MyDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -32,15 +33,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BOOK);
+        db.execSQL(CREATE_USER);
         Toast.makeText(mContext, "create succeeded", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade: ");
-        if (newVersion == 2) {
-            db.execSQL(CREATE_USER);
-            Toast.makeText(mContext, "升级数据库", Toast.LENGTH_LONG).show();
+        switch (oldVersion) {
+            case 1:
+                db.execSQL(CREATE_USER);
+            case 2:
+                db.execSQL("alter table User add Column gender text");
+            default:
+                
         }
     }
 }
