@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_createDatabase = findViewById(R.id.btn_click);
         btn_createDatabase.setOnClickListener(this);
 
-        myDatabaseHelper = new MyDatabaseHelper(this, "book.db", null, 1);
+        myDatabaseHelper = new MyDatabaseHelper(this, "book.db", null, 2);
     }
 
     @Override
